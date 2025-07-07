@@ -31,28 +31,27 @@ export default function PerfilScreen() {
 
       {/* Botão Clientes */}
       <View className="items-center mt-4">
-        <View className="rounded-xl items-center px-6 py-4 "style={{backgroundColor:"#686868"}}>
-          <Text className="text-white text-lg font-semibold mb-2">Clientes</Text>
+        <View className="rounded-xl items-center px-6 py-4" style={{ backgroundColor: "#686868" }}>
+          <Text className="text-white text-lg font-semibold mb-2">Tarefas</Text>
           <TouchableOpacity className="bg-yellow-400 px-4 py-2 rounded-full">
             <Text style={{ color: "#686868" }}>Ver mais</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      {/* Lista de Tarefas */}
+      {/* Lista de Tarefas com novo Card */}
       <ScrollView className="mt-6 px-4">
         {tarefas.map((tarefa, index) => (
-          <View
-            key={index}
-            className="flex-row items-center  rounded-r-xl mb-4 ml-5 mr-5 h-28 w-100" style={{backgroundColor:"#686868"}}
-            
-          >
-            <View className={`w-2 h-full rounded-r-full mr-3 ${tarefa.cor}`} />
-            <View className="flex-1">
-              <Text className="text-white font-semibold text-xl">{tarefa.nome}</Text>
-              <Text className="text-white">Data: {tarefa.data}</Text>
+          <View key={index} className="w-5/6 h-28 rounded-lg items-center overflow-hidden flex-row shadow-xl mb-4 self-center" style={{ backgroundColor: "#686868" }}>
+            <Image source={require('../img/img04.png')} style={{ width: 140, height: 140, right: 30 }} />
+            <View className="gap-3">
+              <Text className="font-semibold text-2xl text-white text-center">Lucas Silva</Text>
+              <View className="items-center">
+                <TouchableOpacity className="w-32 h-10 bg-white rounded-full items-center justify-center">
+                  <Text style={{ color: "#686868" }}>Ver Mais</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <Ionicons name="ellipsis-horizontal" size={20} color="white" className='mt-14 mr-4'/>
           </View>
         ))}
       </ScrollView>

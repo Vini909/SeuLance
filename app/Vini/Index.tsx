@@ -31,6 +31,7 @@ export default function PerfilScreen() {
           source={{ uri: 'https://i.pravatar.cc/150?img=5' }}
           className="w-52 h-52 rounded-full"
         />
+        <Ionicons name="pencil" size={30} color="white" className='mt-14 mr-4 absolute right-20 '/>
         <Text className="text-white px-4 py-1  pl-32 pr-32 pb-4 pt-4 rounded mt-2 text-4xl font-semibold" style={{backgroundColor:"#686868"}} >
           Gabrieli
         </Text>

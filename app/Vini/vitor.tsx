@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
+import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 interface ChartDataItem {
@@ -9,7 +11,7 @@ interface ChartDataItem {
 }
 
 
-
+// isso aq é pra simular um banco de dados no improviso
 const chartData = {
   lucros: {
     dia: [
@@ -73,21 +75,21 @@ const LotsOfStyles = () => {
   interface ChartDataItem {
     value: number;
   }
-  
+
   interface ChartData {
     [key: string]: {
       [key: string]: ChartDataItem[];
     };
   }
-  
-  
+
+
 
   const [chartMode, setChartMode] = useState<ChartMode>({
     type: 'lucros',
     period: 'dia',
   });
-  
-  
+
+
   const handleChartChange = (key: string, value: string) => {
     setChartMode(prevMode => ({
       ...prevMode,
@@ -95,7 +97,7 @@ const LotsOfStyles = () => {
     }));
   };
 
- 
+
   const currentChartData = useMemo(() => {
     return chartData[chartMode.type][chartMode.period];
   }, [chartMode.type, chartMode.period]);
@@ -112,98 +114,123 @@ const LotsOfStyles = () => {
   }, [currentChartData]);
 
   return (
-    <View style={styles.containerMain}>
-      <View style={styles.graficoContainer}>
-        <Text style={styles.tituloGrafico}>
-        {/* mostra titulo dependendo do tipo de grafico sendo mostrado */}
-          {chartMode.type === 'lucros' ? 'Gráfico de lucros' : 'Gráficos de clientes'} 
-        </Text>
+    <SafeAreaView className="flex-1 bg-gradient-to-b from-violet-950 to-fuchsia-800">
+      <View className="flex-row items-center justify-between p-4 bg-white rounded-b-2xl">
+        <Text className="text-black font-bold text-base">Daniel Próspero</Text>
+        <Ionicons name="person-circle" size={28} color="black" />
+      </View>
 
-        {/* botoes brancos da parte de cima */}
-        <View style={styles.botaoGraficoContainer}>
-          <TouchableOpacity
-            style={styles.botaoGrafico}
-            onPress={() => handleChartChange('period', 'dia')}
-          >
-            Dia
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.botaoGrafico}
-            onPress={() => handleChartChange('period', 'mes')}
-          >
-            Mês
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.botaoGrafico}
-            onPress={() => handleChartChange('period', 'ano')}
-          >
-            Ano
-          </TouchableOpacity>
+      <View className="flex-row justify-between px-4 mt-4">
+        <Ionicons name="arrow-back" size={24} color="white" />
+        <Ionicons name="home" size={24} color="white" />
+      </View>
+
+      <ScrollView style={styles.scrollviewMain}>
+        <View style={styles.graficoContainer}>
+          <Text style={styles.tituloGrafico}>
+            {/* mostra titulo dependendo do tipo de grafico sendo mostrado */}
+            {chartMode.type === 'lucros' ? 'Gráfico de lucros' : 'Gráficos de clientes'}
+          </Text>
+
+          {/* botoes brancos da parte de cima */}
+          <View style={styles.botaoGraficoContainer}>
+            <TouchableOpacity
+              style={styles.botaoGrafico}
+              onPress={() => handleChartChange('period', 'dia')}
+            >
+              Dia
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.botaoGrafico}
+              onPress={() => handleChartChange('period', 'mes')}
+            >
+              Mês
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.botaoGrafico}
+              onPress={() => handleChartChange('period', 'ano')}
+            >
+              Ano
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
+            <BarChart
+              frontColor={'#E7CD4E'}
+              barBorderRadius={4}
+              barBorderBottomLeftRadius={0}
+              barBorderBottomRightRadius={0}
+              barWidth={22}
+              maxValue={maxValue}
+              noOfSections={8}
+              data={currentChartData}
+              height={450}
+              hideRules={false}
+              isAnimated
+              rulesColor={'gray'}
+              yAxisTextStyle={{ color: 'white' }}
+              xAxisLabelTextStyle={{ color: 'gray' }}
+              yAxisThickness={0}
+              xAxisColor={'#696969'}
+              xAxisThickness={1}
+
+
+              renderTooltip={(item: ChartDataItem) => ( // mostra o valor de uma determinada barrinha do grafico qnd clicado
+                <View style={styles.tooltipContainer}>
+                  <Text>{item.value}</Text>
+                </View>
+              )}
+            />
+          </ScrollView>
+
+          <Text style={styles.totalGrafico}>
+            {/* mostra total de valores no grafico atual sendo exibido */}
+            {chartMode.type === 'lucros' ? `R$ ${totalSum.toFixed(2)}` : `Total de Clientes: ${totalSum.toFixed(0)}`}
+          </Text>
+          <Text style={styles.totalGraficoBaixo}>
+            no período selecionado
+          </Text>
         </View>
 
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
-          <BarChart
-            frontColor={'#E7CD4E'}
-            barBorderRadius={4}
-            barWidth={22}
-            maxValue={maxValue}
-            noOfSections={8}
-            data={currentChartData}
-            height={450}
-            hideRules={false}
-            
-            renderTooltip={(item: ChartDataItem) => ( // mostra o valor de uma determinada barrinha do grafico qnd clicado
-              <View style={styles.tooltipContainer}>
-                <Text>{item.value}</Text>
-              </View>
-            )}
-          />
-        </ScrollView>
+        <View style={styles.botaoBaixoContainer}>
+          <TouchableOpacity
+            style={styles.botaoBaixo}
+            onPress={() => handleChartChange('type', 'lucros')}
+          >
+            Lucros
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.botaoBaixo}
+            onPress={() => handleChartChange('type', 'clientes')}
+          >
+            Clientes
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
 
-        <Text style={styles.totalGrafico}>
-          {/* mostra total de valores no grafico atual sendo exibido */}
-          {chartMode.type === 'lucros' ? `R$ ${totalSum.toFixed(2)}` : `Total de Clientes: ${totalSum.toFixed(0)}`} 
-        </Text>
-        <Text style={styles.totalGraficoBaixo}>
-          no período selecionado
-        </Text>
-      </View>
-
-      <View style={styles.botaoBaixoContainer}>
-        <TouchableOpacity
-          style={styles.botaoBaixo}
-          onPress={() => handleChartChange('type', 'lucros')}
-        >
-          Lucros
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.botaoBaixo}
-          onPress={() => handleChartChange('type', 'clientes')}
-        >
-          Clientes
-        </TouchableOpacity>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 // css do codigo (no react se chama stylesheet num sei o pq)
 const styles = StyleSheet.create({
+  scrollviewMain: {
+    marginTop: 10,
+  },
   tooltipContainer: {
     marginBottom: 20,
-    marginLeft: -6,
+    marginRight: -6,
+    position: 'absolute',
+    right: -40, // Adjust this value to move the tooltip further left
+    top: '50%',
     backgroundColor: '#ffcefe',
     paddingHorizontal: 6,
     paddingVertical: 4,
     borderRadius: 4,
   },
-  containerMain: {
-    backgroundColor: '#3b0066',
-    flex: 1,
-  },
   graficoContainer: {
     backgroundColor: '#4E4E4E',
-    height: 700,
+    height: 'auto',
     width: '90%',
     margin: 'auto',
     borderRadius: 8,
@@ -244,6 +271,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
+    marginTop: 20,
   },
   totalGraficoBaixo: {
     textAlign: 'center',
@@ -251,6 +279,7 @@ const styles = StyleSheet.create({
     color: '#A6A6A6',
   },
   botaoBaixo: {
+    marginTop: 10,
     marginBottom: 10,
     backgroundColor: '#E7CD4E',
     width: '30%',

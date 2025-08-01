@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // ou 'react-native-vector-icons/Ionicons'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLocalSearchParams, router } from "expo-router";
 
 const tarefas = [
   { cor: 'bg-red-600', nome: 'Nome da Tarefa', data: '26/05' },
@@ -18,10 +19,9 @@ export default function PerfilScreen() {
 
         
         <View className="flex-row justify-between px-4 mt-4">
-            <Ionicons name="arrow-back" size={24} color="white" />
-            <Ionicons name="home" size={24} color="white" />
+            <Ionicons name="arrow-back" size={24} color="white" onPress={()=>{router.push("/math")}}/>
+            <Ionicons name="home" size={24} color="white" onPress={()=>{router.push("/math")}}/>
         </View>
-
         
         <View className="items-center mt-4">
             <Image
@@ -43,7 +43,7 @@ export default function PerfilScreen() {
                 <Text className="text-white items-center text-center font-semibold text-2xl ">67 9999-9999</Text>
                 <Text className="text-white items-center text-center font-semibold text-2xl top-4">R$ 200.00</Text>
                 <Text className="text-white items-center text-center font-semibold text-2xl top-60 right-2 pb-2">{tarefa.data}</Text>
-                <TouchableOpacity className="w-48 h-10 bg-white rounded-full items-center justify-center top-60 left-16 ">
+                <TouchableOpacity className="w-48 h-10 bg-white rounded-full items-center justify-center top-60 left-16 " onPress={()=>{router.push("/math")}}>
                     <Text className='color-black text-lg font-semibold'>Salvar</Text>
                 </TouchableOpacity>
                 </View>

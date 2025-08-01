@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // ou 'react-native-vector-icons/Ionicons'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLocalSearchParams, router } from "expo-router";
 
 const tarefas = [
   { cor: 'bg-red-600', nome: 'Nome da Tarefa', data: '26/05' },
@@ -21,8 +22,8 @@ export default function PerfilScreen() {
 
       
       <View className="flex-row justify-between px-4 mt-4">
-        <Ionicons name="arrow-back" size={24} color="white" />
-        <Ionicons name="home" size={24} color="white" />
+            <Ionicons name="arrow-back" size={24} color="white" onPress={()=>{router.push("/client")}}/>
+            <Ionicons name="home" size={24} color="white" onPress={()=>{router.push("/math")}}/>
       </View>
 
       
@@ -37,8 +38,8 @@ export default function PerfilScreen() {
         </Text>
       </View>
       <View className="items-center">
-        <TouchableOpacity className="w-5/6 h-16 rounded-lg flex-row items-center top-3 pl-4" style={{backgroundColor: "#686868"}}>
-            <Image source={require('../img/img03.png')} className=""></Image>
+        <TouchableOpacity className="w-5/6 h-16 rounded-lg flex-row items-center top-3 pl-4" style={{backgroundColor: "#686868"}} onPress={()=>{router.push("/cadClientes")}}>
+            <Image source={require('./img/img03.png')} className=""></Image>
               <Text className="color-white text-lg ml-2">Adicionar</Text>
             </TouchableOpacity>
       </View>

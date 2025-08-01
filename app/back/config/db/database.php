@@ -2,7 +2,7 @@
 class Database
 {
     private $server = "localhost";
-    private $dbname = "turma144crud";
+    private $dbname = "seulance";
     private $user = "root";
     private $pass = "";
 
@@ -10,15 +10,16 @@ class Database
         try {
             $conn = new PDO(
                 "mysql:host=" . $this->server . ";dbname=" . $this->dbname,
-                $this->user,$this->pass
+                $this->user,
+                $this->pass
             );
-            
-            $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-           return $conn;
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conn;
 
         } catch (\Exception $th) {
-            echo $th->getMessage();
+            echo "Erro na conexão: " . $th->getMessage();
+            return null;
         }
-        
     }
 }

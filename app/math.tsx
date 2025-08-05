@@ -33,10 +33,11 @@ export default function Index() {
 
   return (
     <View className="bg-gradient-to-b from-violet-950 to-fuchsia-900 w-full h-full">
+      <CabeComp />
       <ScrollView>
-        <View className="items-center">
+        <TouchableOpacity className="items-center" onPress={() => router.push("/planos")}>
           <Image source={require('./img/planos.png')}/>
-        </View>
+        </TouchableOpacity>
 
         <DateComp />
 
@@ -63,7 +64,7 @@ export default function Index() {
     
       </View>
 
-      <View className="ml-3 mt-6 mb-4">
+      <View className="ml-9 mt-6 mb-4">
           <Text className="text-white text-3xl font-bold">Menu</Text>
       </View>
       
@@ -85,7 +86,7 @@ export default function Index() {
 
       </View>
 
-        <View className="pl-4 mt-6 mb-4">
+        <View className="mt-6 mb-4 ml-9">
           <Text className="text-white font-bold text-3xl">Tarefas</Text>
         </View>
 

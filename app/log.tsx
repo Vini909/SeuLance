@@ -74,7 +74,7 @@ export default function Index() {
                 textShadowOffset: { width: 0, height: 0 },
                 textShadowRadius: 18,
               }}>
-              Criar conta! <Link href={'/pgCad/cad'} className="font-light">Cadastrar</Link>
+              Criar conta! <Link href={'/cad'} className="font-light">Cadastrar</Link>
             </Text>
 
             <Text className="text-white text-base text-center mt-1" onPress={() => router.push("/pgClientes")}>

@@ -63,7 +63,7 @@ export default function PerfilScreen() {
 
         <View className="items-center mt-4">
           <Image
-            source={{ uri: 'https://i.pravatar.cc/150?img=5' }}
+            source={require('./img/img04.png')}
             className="w-52 h-52 rounded-full"
           />
           <Text
@@ -80,8 +80,8 @@ export default function PerfilScreen() {
             style={{ backgroundColor: "#686868" }}
           >
             <View className="flex-1">
-              <Text className="text-white text-center font-semibold text-3xl mb-2">{empresa}</Text>
-              <Text className="text-white text-center text-lg mb-2">
+              <Text className="text-white text-center font-semibold text-3xl bottom-8">{empresa}</Text>
+              <Text className="text-white text-center text-lg mb-4 pl-5 pr-5">
                 {descricao || 'Sem descrição'}
               </Text>
               <Text className="text-white text-center font-semibold text-xl mb-2">
@@ -95,7 +95,7 @@ export default function PerfilScreen() {
               </Text>
 
               <TouchableOpacity
-                className="w-48 h-10 bg-white rounded-full items-center justify-center mx-auto"
+                className="w-48 h-10 bg-white rounded-full items-center justify-center mx-auto top-7"
                 onPress={finalizarTarefa}
               >
                 <Text className="text-black text-lg font-semibold">Finalizar</Text>
@@ -104,7 +104,6 @@ export default function PerfilScreen() {
           </View>
         </View>
 
-        <View className="w-full h-4 rounded-t-full mr-3 bg-red-600 mb-10" />
       </ScrollView>
     </SafeAreaView>
   );

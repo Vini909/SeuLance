@@ -3,6 +3,7 @@ import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, router } from "expo-router";
+import CabeComp from './componentes/cabe';
 
 const tarefas = [
   { cor: 'bg-red-600', nome: 'Nome da Tarefa', data: '26/05' },
@@ -15,12 +16,7 @@ export default function PerfilScreen() {
   return (
     <SafeAreaView className="flex-1 bg-gradient-to-b from-violet-950 to-fuchsia-800">
 
-      {/* Topo com nome e ícone */}
-      <View className="flex-row items-center justify-between p-4 bg-white rounded-b-2xl">
-        <Text className="text-black font-bold text-base">Lucas Silva</Text>
-        <Ionicons name="person-circle" size={28} color="black" />
-      </View>
-
+      <CabeComp />
       {/* Botões de navegação */}
       <View className="flex-row justify-between px-4 mt-4">
             <Ionicons name="arrow-back" size={24} color="white" onPress={()=>{router.push("/client")}}/>

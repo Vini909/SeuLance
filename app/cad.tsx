@@ -32,7 +32,7 @@ export default function Cadastro() {
 
       if (resultado.status === "success") {
         Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
-        router.push("/pgLogin/log");
+        router.push("/log");
       } else {
         Alert.alert("Erro", resultado.mensagem || "Erro ao cadastrar.");
       }
@@ -91,7 +91,7 @@ export default function Cadastro() {
                 textShadowRadius: 18,
               }}
             >
-              Já tem conta? <Link href={'/pgLogin/log'} className="font-light">Login</Link>
+              Já tem conta? <Link href={'/log'} className="font-light" >Login</Link>
             </Text>
           </View>
 

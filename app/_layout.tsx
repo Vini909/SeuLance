@@ -16,6 +16,7 @@ export default function RootLayout() {
       <Stack.Screen name="perfil" options={{ headerShown: false}} />
       <Stack.Screen name="planos" options={{ headerShown: false}} />
       <Stack.Screen name="tarefa_desc" options={{ headerShown: false}} />
+      <Stack.Screen name="vitor" options={{ headerShown: false}} />
     </Stack>
   );
 }

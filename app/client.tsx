@@ -42,7 +42,7 @@ export default function Index() {
             <Ionicons name="home" size={24} color="white" onPress={()=>{router.push("/math")}}/>
         </View>
         <DateComp />
-        <View className="pl-6 mt-3 mb-3">
+        <View className="ml-9 mt-3 mb-3">
           <Text className="color-white text-3xl font-bold">Clientes</Text>
         </View>
         

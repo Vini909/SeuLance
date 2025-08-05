@@ -2,7 +2,7 @@ import { View, Text, TextInput, Image, ImageBackground, ScrollView, Alert,Toucha
 import { router } from "expo-router";
 import { useState } from "react"
 import { Ionicons } from '@expo/vector-icons';
-
+import CabeComp from './componentes/cabe';
 
 export default function Index(){
     const [tipo, setTipo] = useState("");
@@ -60,14 +60,16 @@ export default function Index(){
       
     return(
         <View className="bg-gradient-to-b from-violet-950 to-fuchsia-900 w-full h-full overflow-hidden">
+          <CabeComp />
             <ScrollView className="">
+            <View className="items-center">
+              <View style={{backgroundColor: '#686868', width: 500, height: 1000, position: 'absolute', borderTopLeftRadius:1000, borderTopRightRadius:1000, top: 160}}></View>
+            </View>
             <View className="flex-row justify-between px-4 mt-4">
             <Ionicons name="arrow-back" size={24} color="white" onPress={()=>{router.push("/client")}}/>
             <Ionicons name="home" size={24} color="white" onPress={()=>{router.push("/math")}}/>
         </View>
-            <View className="items-center">
-                <View style={{backgroundColor: '#686868', width: 500, height: 1000, position: 'absolute', borderRadius: 1000, top: 160}}></View>
-            </View>
+            
 
             <View className="items-center mb-20">
                 <Image className="bg-white w-36 h-36 rounded-full" style={{position: 'absolute', top: 65}}></Image>

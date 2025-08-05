@@ -3,6 +3,7 @@ import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // ou 'react-native-vector-icons/Ionicons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, router } from "expo-router";
+import CabeComp from "./componentes/cabe";
 
 const tarefas = [
   { cor: 'bg-red-600', nome: 'Nome da Tarefa', data: '26/05' },
@@ -15,10 +16,7 @@ export default function PerfilScreen() {
   return (
     <SafeAreaView className="flex-1 bg-gradient-to-b from-violet-950 to-fuchsia-800">
       
-      <View className="flex-row items-center justify-between p-4 bg-white rounded-b-2xl">
-        <Text className="text-black font-bold text-base">Daniel Próspero</Text>
-        <Ionicons name="person-circle" size={28} color="black" />
-      </View>
+      <CabeComp />
 
       
       <View className="flex-row justify-between px-4 mt-4">
@@ -29,12 +27,12 @@ export default function PerfilScreen() {
       
       <View className="items-center mt-4">
         <Image
-          source={{ uri: 'https://i.pravatar.cc/150?img=5' }}
+          source={require('./img/img04.png')}
           className="w-52 h-52 rounded-full"
         />
         <Ionicons name="pencil" size={30} color="white" className='mt-14 mr-4 absolute right-20 '/>
         <Text className="text-white px-4 py-1  pl-32 pr-32 pb-4 pt-4 rounded mt-2 text-4xl font-semibold" style={{backgroundColor:"#686868"}} >
-          Gabrieli
+          Lucas
         </Text>
       </View>
       <View className="items-center">

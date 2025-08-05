@@ -1,70 +1,38 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+require_once __DIR__ . '/../config/db/database.php';
 
-require_once __DIR__ . '/../config/database.php';
+class RelatorioController {
+    private $conn;
 
-function registrarRelatorio() {
-    global $conn;
-
-    // Recebe dados POST
-    $data = $_POST['data'] ?? null;
-    $valor = $_POST['valor'] ?? null;
-    $tipo = $_POST['tipo'] ?? 'lucro';
-    $cliente_id = $_POST['cliente_id'] ?? null;
-
-    if (!$data || !$valor) {
-        echo json_encode(["status" => "error", "mensagem" => "Dados incompletos"]);
-        return;
+    public function __construct($db) {
+        $this->conn = $db;
     }
 
-    $sql = "INSERT INTO relatorio (data, valor, tipo, cliente_id) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        echo json_encode(["status" => "error", "mensagem" => "Erro na preparação da query: " . $conn->error]);
-        return;
-    }
+    public function registrarRelatorio($data, $valor, $tipo = 'lucro') {
+        $sql = "INSERT INTO relatorio (data, valor, tipo) VALUES (:data, :valor, :tipo)";
+        $stmt = $this->conn->prepare($sql);
 
-    // cliente_id pode ser null, então bind como integer ou null
-    if ($cliente_id === null) {
-        $stmt->bind_param("sds", $data, $valor, $tipo);
-        // Mas no seu banco o cliente_id não é obrigatório (nullable) então pode omitir
-        $sql = "INSERT INTO relatorio (data, valor, tipo) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        if (!$stmt) {
-            echo json_encode(["status" => "error", "mensagem" => "Erro na preparação da query: " . $conn->error]);
-            return;
+        $stmt->bindValue(':data', $data);
+        $stmt->bindValue(':valor', $valor);
+        $stmt->bindValue(':tipo', $tipo);
+
+        if ($stmt->execute()) {
+            return ["status" => "success", "mensagem" => "Relatório registrado com sucesso"];
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return ["status" => "error", "mensagem" => $errorInfo[2] ?? "Erro desconhecido"];
         }
-        $stmt->bind_param("sds", $data, $valor, $tipo);
-    } else {
-        $stmt->bind_param("sdsi", $data, $valor, $tipo, $cliente_id);
     }
 
-    if ($stmt->execute()) {
-        echo json_encode(["status" => "success", "mensagem" => "Registro inserido com sucesso"]);
-    } else {
-        echo json_encode(["status" => "error", "mensagem" => "Erro ao inserir no banco: " . $stmt->error]);
-    }
+    public function consultarRelatorio($tipo = 'lucro') {
+        $sql = "SELECT * FROM relatorio WHERE tipo = :tipo";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':tipo', $tipo);
+        $stmt->execute();
 
-    $stmt->close();
+        $relatorios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return ["status" => "success", "relatorio" => $relatorios];
+    }
 }
-
-function consultarRelatorio() {
-    global $conn;
-
-    $sql = "SELECT id, data, valor, tipo, cliente_id FROM relatorio ORDER BY data ASC";
-    $result = $conn->query($sql);
-
-    if (!$result) {
-        echo json_encode(["status" => "error", "mensagem" => "Erro na consulta: " . $conn->error]);
-        return;
-    }
-
-    $relatorio = [];
-
-    while ($row = $result->fetch_assoc()) {
-        $relatorio[] = $row;
-    }
-
-    echo json_encode(["status" => "success", "relatorio" => $relatorio]);
-}
+?>

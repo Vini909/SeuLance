@@ -1,4 +1,3 @@
-
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
@@ -42,6 +41,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     switch ($acao) {
         case 'listar':
             $resultado = $cadastro->listarClientes();
+            echo json_encode([
+                "status" => "success",
+                "dados" => $resultado
+            ]);
+            break;
+
+        case 'contar':
+            $resultado = $cadastro->contarClientesPorData();
             echo json_encode([
                 "status" => "success",
                 "dados" => $resultado

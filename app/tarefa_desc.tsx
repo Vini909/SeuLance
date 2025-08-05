@@ -9,23 +9,44 @@ export default function PerfilScreen() {
 
   const finalizarTarefa = async () => {
     try {
-      await fetch("http://192.168.56.1/SeuLance/app/back/router/relatorioRouter.php?acao=registrar", {
+      const payload = {
+        data: typeof data === 'string' ? data : new Date().toISOString().split("T")[0],
+        valor: parseFloat(valor as string) || 0,
+        tipo: "lucro"
+      };
+  
+      const response = await fetch("http://192.168.56.1/SeuLance/app/back/router/relatorioRouter.php?acao=registrar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          data: data?.toString() ?? new Date().toISOString().split("T")[0],
-          valor: valor?.toString() ?? "0",
-          tipo: "lucro"
-        }),
+        body: JSON.stringify(payload),
       });
-
-      router.push("/vitor");
+  
+      const text = await response.text();  // lê resposta bruta (pode ser JSON ou erro HTML)
+      console.log("Resposta bruta do servidor:", text);
+  
+      let resultado;
+      try {
+        resultado = JSON.parse(text);
+      } catch (jsonError) {
+        console.error("Erro ao parsear JSON:", jsonError);
+        alert("Erro no formato da resposta do servidor.");
+        return;
+      }
+  
+      if (resultado.status === "success") {
+        router.push("/vitor");
+      } else {
+        console.error("Erro ao registrar lucro:", resultado.mensagem);
+        alert("Erro ao registrar lucro: " + resultado.mensagem);
+      }
     } catch (error) {
       console.error("Erro ao registrar lucro:", error);
+      alert("Erro na requisição: " + error);
     }
   };
+  
 
   return (
     <SafeAreaView className="flex-1 bg-gradient-to-b from-violet-950 to-fuchsia-800">

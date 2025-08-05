@@ -39,7 +39,7 @@ const VitorScreen = () => {
         resultado.relatorio.forEach((item: any) => {
           const data = new Date(item.data);
           const valor = parseFloat(item.valor);
-          const d = data.getDate().toString();
+          const d = (data.getDate() + 1).toString();
           const m = (data.getMonth() + 1).toString();
           const y = data.getFullYear().toString();
 

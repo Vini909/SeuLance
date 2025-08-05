@@ -11,15 +11,14 @@ import {
   ScrollView,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import DateComp from './componentes/date';
 
 export default function NovaTarefa() {
   const [usuario] = useState('Lucas Silva');
 
   const [dados, setDados] = useState({
     dia: '',
-    descrição: '',
-    endereço: '',
+    descricao: '',
+    endereco: '',
     empresa: '',
     valor: '',
   });
@@ -33,8 +32,8 @@ export default function NovaTarefa() {
 
     const params = new URLSearchParams();
     params.append("dia", dados.dia);
-    params.append("descrição", dados.descrição);
-    params.append("endereço", dados.endereço);
+    params.append("descricao", dados.descricao);
+    params.append("endereco", dados.endereco);
     params.append("empresa", dados.empresa);
     params.append("valor", dados.valor);
 
@@ -62,8 +61,8 @@ export default function NovaTarefa() {
 
         setDados({
           dia: '',
-          descrição: '',
-          endereço: '',
+          descricao: '',
+          endereco: '',
           empresa: '',
           valor: '',
         });
@@ -109,19 +108,18 @@ export default function NovaTarefa() {
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
-        
         <CabeComp />
         <View className="flex-row justify-between px-4 mt-4">
-            <Ionicons name="arrow-back" size={24} color="transparent" onPress={()=>{router.push("")}}/>
-            <Ionicons name="home" size={24} color="white" onPress={()=>{router.push("/math")}}/>
+          <Ionicons name="arrow-back" size={24} color="transparent" onPress={() => { router.push("") }} />
+          <Ionicons name="home" size={24} color="white" onPress={() => { router.push("/math") }} />
         </View>
         <View style={styles.tituloBox}>
           <Text style={styles.tituloTexto}>Novas Tarefas</Text>
         </View>
 
         {renderCampo('Data', 'dia')}
-        {renderCampo('Descrição', 'descrição')}
-        {renderCampo('Endereço', 'endereço')}
+        {renderCampo('Descrição', 'descricao')}
+        {renderCampo('Endereço', 'endereco')}
         {renderCampo('Nome da tarefa', 'empresa')}
         {renderCampo('Valor negociável', 'valor')}
 
@@ -166,9 +164,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     marginBottom: 20,
-    marginRight:12,
-    marginLeft:12,
-    top:10,
+    marginRight: 12,
+    marginLeft: 12,
+    top: 10,
   },
   tituloTexto: {
     fontSize: 16,
@@ -180,8 +178,8 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     marginBottom: 12,
-    marginLeft:12,
-    marginRight:12,
+    marginLeft: 12,
+    marginRight: 12,
   },
   cardLabel: {
     color: '#fff',
@@ -208,10 +206,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 6,
     alignItems: 'center',
-    margin:12,
+    margin: 12,
   },
   botaoSalvarTexto: {
     color: '#000',
     fontWeight: 'bold',
-  }
+  },
 });

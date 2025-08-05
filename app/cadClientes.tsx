@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { useState } from "react"
 import { Ionicons } from '@expo/vector-icons';
 
+
 export default function Index(){
     const [tipo, setTipo] = useState("");
     const [nome, setNome] = useState("");
@@ -13,36 +14,50 @@ export default function Index(){
 
     async function cad_Client() {
         const dados = {
-        tipo: tipo,
-        nome: nome,
-        contato: contato,
-        email: email,
+          tipo: tipo,
+          nome: nome,
+          contato: contato,
+          email: email,
         };
-
+      
         try {
-            const resposta = await fetch(API_URL, {
-                method: "POST",
-                headers: {
+          const resposta = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams(dados).toString(),
+          });
+      
+          const resultado = await resposta.json();
+          console.log("Resultado do cadastro:", resultado);
+      
+          if (resultado.status === "success") {
+            // ✅ Após sucesso, salva o registro de cliente ganho
+            await fetch("http://192.168.56.1/SeuLance/app/back/router/relatorioRouter.php?acao=registrar", {
+              method: "POST",
+              headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: new URLSearchParams(dados).toString(),
+              },
+              body: new URLSearchParams({
+                data: new Date().toISOString().split("T")[0], // data de hoje
+                valor: "1",
+                tipo: "cliente"
+              }).toString(),
             });
-
-            const resultado = await resposta.json();
-            console.log("Resultado do cadastro:", resultado);
-
-        if (resultado.status === "success") {
-            Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
+      
+            Alert.alert("Sucesso", "Cliente cadastrado com sucesso!");
             router.push("/client");
-        } else {
+          } else {
             Alert.alert("Erro", resultado.mensagem || "Erro ao cadastrar.");
-        }
-
+          }
+      
         } catch (error) {
-        console.error("Erro na requisição:", error);
-        Alert.alert("Erro de conexão", "Não foi possível conectar ao servidor.");
+          console.error("Erro na requisição:", error);
+          Alert.alert("Erro de conexão", "Não foi possível conectar ao servidor.");
         }
-    }
+      }
+      
     return(
         <View className="bg-gradient-to-b from-violet-950 to-fuchsia-900 w-full h-full overflow-hidden">
             <ScrollView className="">
@@ -84,7 +99,7 @@ export default function Index(){
                 </View>
 
                 <View className="items-center mt-4">
-                    <TouchableOpacity style={{width:240, height:45}} className="bg-white rounded-full shadow-lg items-center justify-center" onPress={cad_Client}>Salvar</TouchableOpacity>
+                    <TouchableOpacity style={{width:240, height:45}} className="bg-white rounded-full shadow-lg items-center justify-center" onPress={cad_Client} >Salvar</TouchableOpacity>
                 </View>
             </View>
             </ScrollView>

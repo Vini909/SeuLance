@@ -80,7 +80,7 @@ export default function Index() {
 
         <View className="w-40 h-24 rounded-lg flex items-center justify-center" style={{backgroundColor: '#686868'}}>    
           <Text className="text-white text-xl font-bold">Finanças</Text>
-          <TouchableOpacity className="bg-yellow-300 w-24 h-9 rounded-3xl flex items-center justify-center" style={{ color: "#686868" }}>Ver mais</TouchableOpacity>
+          <TouchableOpacity className="bg-yellow-300 w-24 h-9 rounded-3xl flex items-center justify-center" style={{ color: "#686868" }} onPress={()=>{router.push("/vitor")}}>Ver mais</TouchableOpacity>
         </View>
 
       </View>
@@ -108,7 +108,8 @@ export default function Index() {
                 <Text className="text-white font-semibold text-3xl">{tarefa.empresa}</Text>
                 <Text className="text-white text-lg">Data: {tarefa.dia}</Text>
               </View>
-              <Ionicons className="mt-14" name="ellipsis-horizontal" size={20} color="white" style={{ marginRight: 16 }}  onPress={()=>{router.push("/tarefa_desc")}}/>
+              <Ionicons className="mt-14" name="ellipsis-horizontal" style={{ marginRight: 16 }} size={20} color="white"  onPress={() => {router.push({pathname: "/tarefa_desc",params: {empresa: tarefa.empresa, data: tarefa.dia, descricao: tarefa.descricao, endereco: tarefa.endereco, valor: tarefa.valor,},});}}/>
+
             </View>
           ))}
         </ScrollView>

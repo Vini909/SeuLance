@@ -36,7 +36,7 @@ export default function PerfilScreen() {
         </Text>
       </View>
       <View className="items-center">
-        <TouchableOpacity className="w-5/6 h-16 rounded-lg flex-row items-center top-3 pl-4" style={{backgroundColor: "#686868"}} onPress={()=>{router.push("/cadClientes")}}>
+        <TouchableOpacity className="w-5/6 h-16 rounded-lg flex-row items-center top-3 pl-4" style={{backgroundColor: "#686868"}} onPress={()=>{router.push("/gust")}}>
             <Image source={require('./img/img03.png')} className=""></Image>
               <Text className="color-white text-lg ml-2">Adicionar</Text>
             </TouchableOpacity>

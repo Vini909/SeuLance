@@ -9,7 +9,7 @@ const tarefas = [
   { cor: 'bg-red-600', nome: 'Nome da Tarefa', data: '26/05' },
   { cor: 'bg-yellow-400', nome: 'Nome da Tarefa', data: '26/05' },
   { cor: 'bg-green-600', nome: 'Nome da Tarefa', data: '26/05' },
-  { cor: 'bg-purple-400', nome: 'Nome da Tarefa', data: '26/05' },
+  { cor: 'bg-gray-400', nome: 'Nome da Tarefa', data: '26/05' },
 ];
 
 export default function PerfilScreen() {
